@@ -1,0 +1,35 @@
+import express from "express";
+import cors from "cors";
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+let spins = [];
+
+app.get("/", (req, res) => {
+  res.send("🎯 f555.com Backend is running...");
+});
+
+app.post("/spin", (req, res) => {
+  const prize = Math.random() < 0.5 ? "Win" : "Lose";
+  const spin = { id: spins.length + 1, prize };
+  spins.push(spin);
+  res.json(spin);
+});
+
+app.get("/spins", (req, res) => {
+  res.json(spins);
+});
+
+app.listen(3000, () => console.log("✅ f555.com Server running on port 3000"));
+{
+  "name": "f555-server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5"
+  }
+}
